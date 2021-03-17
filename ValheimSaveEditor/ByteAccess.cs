@@ -57,13 +57,12 @@ namespace ValheimSaveEditor
 
         public ValheimData.Vector3 ReadVector3()
         {
-            var vector3 = new ValheimData.Vector3
+            return new ValheimData.Vector3
             {
                 X = reader.ReadSingle(),
                 Y = reader.ReadSingle(),
                 Z = reader.ReadSingle()
             };
-            return vector3;
         }
 
         public byte[] ReadBytes()

@@ -9,7 +9,7 @@ namespace ValheimSaveEditor
 {
     class FchParser
     {
-        public static ByteAccess LoadSaveData(string path)
+        private static ByteAccess LoadSaveData(string path)
         {
             using(var fileStream = File.OpenRead(path))
             {
@@ -61,6 +61,7 @@ namespace ValheimSaveEditor
                 {
                     world.MapData = byteReader.ReadBytes();
                 }
+                character.WorldsData.Add(worldId, world);
             }
 
             //character info
@@ -185,7 +186,10 @@ namespace ValheimSaveEditor
             //It likely exists so a valheim save file is guarenteed to have a different file hash every save, poking steam cloud sync
             //Valheim changes the end file hash value on every save so even if no changes were made to the character,
             // the file will have a different hash due to this changed data
-            character.Hash = byteReader.ReadBytes();
+
+            //Reading this right now gives a "cannot read past end of file" error but the read seems good up until this point. What's causing it?
+
+            //character.Hash = byteReader.ReadBytes();
 
             return character;
         }
@@ -312,11 +316,12 @@ namespace ValheimSaveEditor
             byte[] data = byteWriter.ToArray();
             byte[] final = data.Concat(playerData).ToArray();
             byte[] length = BitConverter.GetBytes(final.Length);
-            byte[] hashLength = BitConverter.GetBytes(character.Hash.Length);
+            byte[] hashLength = BitConverter.GetBytes(64);
+            byte[] hash = SHA512.Create().ComputeHash(final);
             byteWriter.Clear();
             byteWriter2.Clear();
 
-            byte[] characterAsArray = length.Concat(final).ToArray().Concat(hashLength).ToArray().Concat(character.Hash).ToArray();
+            byte[] characterAsArray = length.Concat(final).ToArray().Concat(hashLength).ToArray().Concat(hash).ToArray();
 
             return characterAsArray;
         }
