@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
+using System.Windows.Markup;
 
 namespace ValheimSaveEditor
 {
@@ -21,8 +22,9 @@ namespace ValheimSaveEditor
     /// </summary>
     public partial class MainWindow : Window
     {
-        static private ValheimData.Character character;
-        static private bool isCharacterLoaded;
+        private static ValheimData.Character character;
+        private static bool isCharacterLoaded;
+        static ValheimData.Character.SkillName selectedSkill;
 
         public MainWindow()
         {
@@ -70,16 +72,59 @@ namespace ValheimSaveEditor
             Application.Current.Shutdown();
         }
 
+        //Populate the form when a character is loaded
         private void PopulateForm()
         {
+            //name
             CharNameTextbox.Text = character.Name;
+
+            //skills
+            foreach(ValheimData.Character.Skill skill in character.Skills.Values)
+            {
+                SkillsSelectBox.Items.Add(ValheimData.ConvertSkillEnum(skill.SkillName));
+            }
         }
 
+        //Change character name
         private void ChangeNameEventHandle(object sender, TextChangedEventArgs args)
+        {
+            if(isCharacterLoaded)
+            {
+                character.Name = CharNameTextbox.Text;
+            }
+        }
+
+        //Skills
+        private void ChangeSelectedSkill(object sender, SelectionChangedEventArgs e)
         {
             if (isCharacterLoaded)
             {
-                character.Name = CharNameTextbox.Text;
+                selectedSkill = ValheimData.ConvertSkillEnum(SkillsSelectBox.SelectedItem.ToString());
+                var skillLevel = character.Skills[selectedSkill];
+                SkillLevelTextbox.Text = skillLevel.Level.ToString();
+            }
+        }
+        private void ChangeSkillLevelEventHandle(object sender, TextChangedEventArgs args)
+        {
+            if(isCharacterLoaded)
+            {
+                bool result = int.TryParse(SkillLevelTextbox.Text, out int i);
+                if (result && i > 0 && i < 100)
+                {
+                    character.Skills[selectedSkill].Level = i;
+                }
+            }
+        }
+        private void ClickMaxSkills(object sender, EventArgs args)
+        {
+            if(isCharacterLoaded)
+            {
+                foreach(KeyValuePair<ValheimData.Character.SkillName, ValheimData.Character.Skill> entry in character.Skills)
+                {
+                    entry.Value.Level = 100;
+                    entry.Value.Accumulator = 0;
+                }
+                SkillLevelTextbox.Text = "100";
             }
         }
     }

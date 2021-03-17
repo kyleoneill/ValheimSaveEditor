@@ -169,7 +169,7 @@ namespace ValheimSaveEditor
             //skills
             character.SkillsVersion = byteReader.ReadInt32();
             var numOfSkills = byteReader.ReadInt32();
-            character.Skills = new HashSet<ValheimData.Character.Skill>();
+            character.Skills = new Dictionary<ValheimData.Character.SkillName, ValheimData.Character.Skill>();
             for(var i = 0; i < numOfSkills; i++)
             {
                 var skill = new ValheimData.Character.Skill
@@ -178,7 +178,7 @@ namespace ValheimSaveEditor
                     Level = byteReader.ReadSingle(),
                     Accumulator = byteReader.ReadSingle()
                 };
-                character.Skills.Add(skill);
+                character.Skills.Add(skill.SkillName, skill);
             }
 
             //character hash should be the final info, written after data array
@@ -303,7 +303,7 @@ namespace ValheimSaveEditor
 
                 byteWriter2.Write(character.SkillsVersion);
                 byteWriter2.Write(character.Skills.Count);
-                foreach (var skill in character.Skills)
+                foreach (var skill in character.Skills.Values)
                 {
                     byteWriter2.Write((int)skill.SkillName);
                     byteWriter2.Write(skill.Level);

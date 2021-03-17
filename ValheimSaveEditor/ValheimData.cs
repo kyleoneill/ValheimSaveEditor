@@ -1,24 +1,82 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Text.RegularExpressions;
 
 namespace ValheimSaveEditor
 {
     class ValheimData
     {
-        static public String[] BeardsUI = { "No beard", "Braided 1", "Braided 2", "Braided 3", "Braided 4", "Long 1", "Long 2", "Short 1", "Short 2", "Short 3", "Thick 1" };
-        static public String[] BeardsInternal = { "BeardNone", "Beard5", "Beard6", "Beard9", "Beard10", "Beard1", "Beard2", "Beard3", "Beard4", "Beard7", "Beard8" };
-        static public String[] HairsUI = { "No hair", "Braided 1", "Braided 2", "Braided 3", "Braided 4", "Long 1", "Ponytail 1", "Ponytail 2", "Ponytail 3", "Ponytail 4", "Short 1", "Short 2", "Side Swept 1", "Side Swept 2", "Side Swept 3" };
-        static public String[] HairsInternal = { "HairNone", "Hair3", "Hair11", "Hair12", "Hair13", "Hair6", "Hair1", "Hair2", "Hair4", "Hair7", "Hair5", "Hair8", "Hair9", "Hair10", "Hair14" };
-        static public String[] Genders = { "Male", "Female" };
+        public static String[] BeardsUI = { "No beard", "Braided 1", "Braided 2", "Braided 3", "Braided 4", "Long 1", "Long 2", "Short 1", "Short 2", "Short 3", "Thick 1" };
+        public static String[] BeardsInternal = { "BeardNone", "Beard5", "Beard6", "Beard9", "Beard10", "Beard1", "Beard2", "Beard3", "Beard4", "Beard7", "Beard8" };
+        public static String[] HairsUI = { "No hair", "Braided 1", "Braided 2", "Braided 3", "Braided 4", "Long 1", "Ponytail 1", "Ponytail 2", "Ponytail 3", "Ponytail 4", "Short 1", "Short 2", "Side Swept 1", "Side Swept 2", "Side Swept 3" };
+        public static String[] HairsInternal = { "HairNone", "Hair3", "Hair11", "Hair12", "Hair13", "Hair6", "Hair1", "Hair2", "Hair4", "Hair7", "Hair5", "Hair8", "Hair9", "Hair10", "Hair14" };
+        public static String[] Genders = { "Male", "Female" };
 
-        static public String NameDisallowedCharacters = "0123456789,;.:-_´¨{}][+*`^¡¿'?=)(/&¬%$·#@!|ª\\º\"'";
+        public static Regex NameRegex = new Regex(@"/([a-z]{4,10})/i");
+
+        private static readonly int MaxInvWidth = 8;
+        private static readonly int MaxInvHeight = 4;
 
         public class Vector3
         {
             public float X;
             public float Y;
             public float Z;
+        }
+
+        public static bool IsInventoryPositionValid(int x, int y)
+        {
+            if (x < 0 || y < 0 || x >= MaxInvWidth || y >= MaxInvHeight)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public static String ConvertSkillEnum(Character.SkillName skill)
+        {
+            return (int)skill switch
+            {
+                1 => "Swords",
+                2 => "Knives",
+                3 => "Clubs",
+                4 => "Polearms",
+                5 => "Spears",
+                6 => "Blocking",
+                7 => "Axes",
+                8 => "Bows",
+                11 => "Unarmed",
+                12 => "Pickaxes",
+                13 => "Woodcutting",
+                100 => "Jumping",
+                101 => "Sneaking",
+                102 => "Running",
+                103 => "Swimming",
+                _ => "Unknown skill",
+            };
+        }
+
+        public static Character.SkillName ConvertSkillEnum(string skill)
+        {
+            return skill switch
+            {
+                "Swords" => (Character.SkillName)1,
+                "Knives" => (Character.SkillName)2,
+                "Clubs" => (Character.SkillName)3,
+                "Polearms" => (Character.SkillName)4,
+                "Spears" => (Character.SkillName)5,
+                "Blocking" => (Character.SkillName)6,
+                "Axes" => (Character.SkillName)7,
+                "Bows" => (Character.SkillName)8,
+                "Unarmed" => (Character.SkillName)11,
+                "Pickaxes" => (Character.SkillName)12,
+                "Woodcutting" => (Character.SkillName)13,
+                "Jumping" => (Character.SkillName)100,
+                "Sneaking" => (Character.SkillName)101,
+                "Running" => (Character.SkillName)102,
+                "Swimming" => (Character.SkillName)103,
+                _ => 0,
+            };
         }
 
         public class Character
@@ -46,7 +104,7 @@ namespace ValheimSaveEditor
             public string Name = "";
             public HashSet<string> Recipes;
             public HashSet<string> ShownTutorials;
-            public HashSet<Skill> Skills;
+            public Dictionary<SkillName, Skill> Skills;
             public Vector3 SkinColor;
             public float Stamina;
             public string StartSeed = "";
