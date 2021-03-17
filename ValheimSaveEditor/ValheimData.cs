@@ -23,6 +23,8 @@ namespace ValheimSaveEditor
 
         public class Character
         {
+            public byte[] Hash;
+            public bool isOldCharacter;
             public string Beard = "";
             public HashSet<Biome> Biomes;
             public int Builds;
@@ -128,7 +130,7 @@ namespace ValheimSaveEditor
             {
                 public float Level;
                 public SkillName SkillName;
-                public float Something;
+                public float Accumulator;
             }
         }
     }

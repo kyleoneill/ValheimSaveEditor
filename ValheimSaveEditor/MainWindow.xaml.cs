@@ -23,6 +23,11 @@ namespace ValheimSaveEditor
         public MainWindow()
         {
             InitializeComponent();
+            if(Utility.IsGameRunning())
+            {
+                MessageBox.Show("Close Valheim before using the save editor", "Warning", MessageBoxButton.OK);
+                Application.Current.Shutdown();
+            }
         }
     }
 }

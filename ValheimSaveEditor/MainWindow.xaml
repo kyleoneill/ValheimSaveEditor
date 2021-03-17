@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ValheimSaveEditor"
         mc:Ignorable="d"
         Title="Valheim Save Editor" Height="450" Width="800">
-    <Grid>
+    <Grid Background="DimGray" >
 
     </Grid>
 </Window>

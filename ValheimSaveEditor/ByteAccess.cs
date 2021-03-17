@@ -5,13 +5,13 @@ using System.IO;
 
 namespace ValheimSaveEditor
 {
-    class ByteReader
+    class ByteAccess
     {
         private BinaryWriter writer;
         private BinaryReader reader;
         private MemoryStream stream = new MemoryStream();
 
-        public ByteReader(byte[] data)
+        public ByteAccess(byte[] data)
         {
             writer = new BinaryWriter(stream);
             reader = new BinaryReader(stream);
@@ -19,7 +19,7 @@ namespace ValheimSaveEditor
             stream.Position = 0;
         }
 
-        public ByteReader()
+        public ByteAccess()
         {
             writer = new BinaryWriter(stream);
             reader = new BinaryReader(stream);
