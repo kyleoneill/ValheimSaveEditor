@@ -77,12 +77,6 @@ namespace ValheimSaveEditor
         {
             //name
             CharNameTextbox.Text = character.Name;
-
-            //skills
-            foreach(ValheimData.Character.Skill skill in character.Skills.Values)
-            {
-                SkillsSelectBox.Items.Add(ValheimData.ConvertSkillEnum(skill.SkillName));
-            }
         }
 
         //Change character name
@@ -94,38 +88,19 @@ namespace ValheimSaveEditor
             }
         }
 
-        //Skills
-        private void ChangeSelectedSkill(object sender, SelectionChangedEventArgs e)
+        private void HandleEditSkillsButton(object sender, RoutedEventArgs e)
         {
             if (isCharacterLoaded)
             {
-                selectedSkill = ValheimData.ConvertSkillEnum(SkillsSelectBox.SelectedItem.ToString());
-                var skillLevel = character.Skills[selectedSkill];
-                SkillLevelTextbox.Text = skillLevel.Level.ToString();
+                SkillsEdit skillsEdit = new SkillsEdit(character);
+                skillsEdit.Show();
             }
         }
-        private void ChangeSkillLevelEventHandle(object sender, TextChangedEventArgs args)
+
+        protected override void OnClosed(EventArgs e)
         {
-            if(isCharacterLoaded)
-            {
-                bool result = int.TryParse(SkillLevelTextbox.Text, out int i);
-                if (result && i > 0 && i < 100)
-                {
-                    character.Skills[selectedSkill].Level = i;
-                }
-            }
-        }
-        private void ClickMaxSkills(object sender, EventArgs args)
-        {
-            if(isCharacterLoaded)
-            {
-                foreach(KeyValuePair<ValheimData.Character.SkillName, ValheimData.Character.Skill> entry in character.Skills)
-                {
-                    entry.Value.Level = 100;
-                    entry.Value.Accumulator = 0;
-                }
-                SkillLevelTextbox.Text = "100";
-            }
+            base.OnClosed(e);
+            Application.Current.Shutdown();
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace ValheimSaveEditor
 {
-    class ValheimData
+    public class ValheimData
     {
         public static String[] BeardsUI = { "No beard", "Braided 1", "Braided 2", "Braided 3", "Braided 4", "Long 1", "Long 2", "Short 1", "Short 2", "Short 3", "Thick 1" };
         public static String[] BeardsInternal = { "BeardNone", "Beard5", "Beard6", "Beard9", "Beard10", "Beard1", "Beard2", "Beard3", "Beard4", "Beard7", "Beard8" };
@@ -16,6 +16,15 @@ namespace ValheimSaveEditor
 
         private static readonly int MaxInvWidth = 8;
         private static readonly int MaxInvHeight = 4;
+
+        // https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-how-to?pivots=dotnet-5-0
+        public class Item
+        {
+            public string Id { get; set; }
+            public string Name { get; set; }
+            public int Stack { get; set; }
+            public float Weight { get; set; }
+        }
 
         public class Vector3
         {
