@@ -42,14 +42,28 @@ namespace ValheimSaveEditor
             var skillLevel = character.Skills[selectedSkill];
             SkillLevelTextbox.Text = skillLevel.Level.ToString();
         }
-        private void ChangeSkillLevelEventHandle(object sender, TextChangedEventArgs args)
+        private void ChangeSkillLevelEventHandle(object sender, RoutedEventArgs args)
         {
-            bool result = int.TryParse(SkillLevelTextbox.Text, out int i);
-            if (result && i > 0 && i < 100)
+            if(selectedSkill != ValheimData.Character.SkillName.None && selectedSkill != ValheimData.Character.SkillName.All)
             {
-                character.Skills[selectedSkill].Level = i;
+                bool result = int.TryParse(SkillLevelTextbox.Text, out int i);
+                if (result && i > 0 && i <= 100)
+                {
+                    character.Skills[selectedSkill].Level = i;
+                    character.Skills[selectedSkill].Accumulator = 0;
+                }
+                else
+                {
+                    SkillLevelTextbox.Text = "";
+                    MessageBox.Show("Please enter a number between 1 and 100 for a skill level.", "Error", MessageBoxButton.OK);
+                }
+            }
+            else
+            {
+                SkillLevelTextbox.Text = "";
             }
         }
+
         private void ClickMaxSkills(object sender, EventArgs args)
         {
             foreach (KeyValuePair<ValheimData.Character.SkillName, ValheimData.Character.Skill> entry in character.Skills)

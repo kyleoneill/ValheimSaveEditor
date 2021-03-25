@@ -24,7 +24,6 @@ namespace ValheimSaveEditor
     {
         private static ValheimData.Character character;
         private static bool isCharacterLoaded;
-        static ValheimData.Character.SkillName selectedSkill;
 
         public MainWindow()
         {

@@ -5,14 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ValheimSaveEditor"
         mc:Ignorable="d"
-        Title="SkillsEdit" Height="450" Width="800">
+        Title="Valheim Save Editor" Height="350" Width="400">
     <Grid Background="DimGray" >
         <Label Content="Skills" FontSize="24" Foreground="White" FontWeight="Medium" HorizontalAlignment="Left" Margin="7,36,0,0" VerticalAlignment="Top" Height="44" Width="170"/>
         <ComboBox x:Name="SkillsSelectBox" SelectionChanged="ChangeSelectedSkill" Margin="57,87,0,0" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Width="120" />
         <Label Content="Name:" Foreground="White" FontWeight="Medium" HorizontalAlignment="Left" Margin="7,85,0,0" Height="26" VerticalAlignment="Top"/>
         <Label Content="Level:" Foreground="White" FontWeight="Medium" Margin="7,120,0,0" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="41"/>
-        <TextBox x:Name="SkillLevelTextbox" TextChanged="ChangeSkillLevelEventHandle" HorizontalAlignment="Left" Margin="53,124,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Max All Skills" Click="ClickMaxSkills" HorizontalAlignment="Left" Margin="10,151,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="SkillLevelTextbox" HorizontalAlignment="Left" Margin="53,124,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Max All Skills" Click="ClickMaxSkills" HorizontalAlignment="Left" Margin="10,217,0,0" VerticalAlignment="Top" Height="34" Width="107"/>
+        <Button Content="Apply" Click="ChangeSkillLevelEventHandle" HorizontalAlignment="Left" Margin="190,123,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
