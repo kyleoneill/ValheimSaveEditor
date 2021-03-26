@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ValheimSaveEditor"
         mc:Ignorable="d"
-        Title="Valheim Save Editor" Height="450" Width="800">
+        Title="Valheim Save Editor" Height="350" Width="400">
     <Grid Background="DimGray">
         <Label Content="Appearance" FontSize="24" Foreground="White" FontWeight="Medium" HorizontalAlignment="Left" Margin="7,36,0,0" VerticalAlignment="Top" Height="44" Width="170"/>
         <Label Content="Gender" Foreground="White" FontWeight="Medium" HorizontalAlignment="Left" Margin="10,94,0,0" Height="26" VerticalAlignment="Top"/>

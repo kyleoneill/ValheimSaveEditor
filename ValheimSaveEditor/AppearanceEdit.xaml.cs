@@ -47,6 +47,10 @@ namespace ValheimSaveEditor
                 BeardSelectBox.Items.Add(beard);
             }
             BeardSelectBox.SelectedIndex = selectedBeard;
+            if(character.Gender == 1)
+            {
+                BeardSelectBox.IsEnabled = false;
+            }
             //hair
             foreach(string hair in ValheimData.HairsUI)
             {
@@ -66,6 +70,11 @@ namespace ValheimSaveEditor
                 character.Beard = ValheimData.BeardsInternal[0];
                 selectedBeard = 0;
                 BeardSelectBox.SelectedIndex = 0;
+                BeardSelectBox.IsEnabled = false;
+            }
+            else
+            {
+                BeardSelectBox.IsEnabled = true;
             }
 
         }
