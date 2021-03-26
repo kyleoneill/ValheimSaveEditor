@@ -71,19 +71,24 @@ namespace ValheimSaveEditor
             Application.Current.Shutdown();
         }
 
-        //Populate the form when a character is loaded
         private void PopulateForm()
         {
-            //name
             CharNameTextbox.Text = character.Name;
         }
 
-        //Change character name
-        private void ChangeNameEventHandle(object sender, TextChangedEventArgs args)
+        private void ChangeNameEventHandle(object sender, RoutedEventArgs args)
         {
             if(isCharacterLoaded)
             {
-                character.Name = CharNameTextbox.Text;
+                string newName = CharNameTextbox.Text;
+                if(newName.Length >= 3 && newName.Length <= 15)
+                {
+                    character.Name = CharNameTextbox.Text;
+                }
+                else
+                {
+                    MessageBox.Show("Character name must be between 3 and 15 characters.", "Warning", MessageBoxButton.OK);
+                }
             }
         }
 
@@ -93,6 +98,15 @@ namespace ValheimSaveEditor
             {
                 SkillsEdit skillsEdit = new SkillsEdit(character);
                 skillsEdit.Show();
+            }
+        }
+
+        private void HandleEditAppearanceButton(object sender, RoutedEventArgs e)
+        {
+            if(isCharacterLoaded)
+            {
+                AppearanceEdit appearanceEdit = new AppearanceEdit(character);
+                appearanceEdit.Show();
             }
         }
 

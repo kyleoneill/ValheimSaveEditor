@@ -1,0 +1,19 @@
+﻿<Window x:Class="ValheimSaveEditor.AppearanceEdit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ValheimSaveEditor"
+        mc:Ignorable="d"
+        Title="Valheim Save Editor" Height="450" Width="800">
+    <Grid Background="DimGray">
+        <Label Content="Appearance" FontSize="24" Foreground="White" FontWeight="Medium" HorizontalAlignment="Left" Margin="7,36,0,0" VerticalAlignment="Top" Height="44" Width="170"/>
+        <Label Content="Gender" Foreground="White" FontWeight="Medium" HorizontalAlignment="Left" Margin="10,94,0,0" Height="26" VerticalAlignment="Top"/>
+        <ComboBox x:Name="GenderSelectBox" SelectionChanged="ChangeSelectedGender" Margin="10,125,0,0" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Width="120" />
+        <Label Content="Beard" Foreground="White" FontWeight="Medium" HorizontalAlignment="Left" Margin="10,170,0,0" Height="26" VerticalAlignment="Top"/>
+        <ComboBox x:Name="BeardSelectBox" SelectionChanged="ChangeSelectedBeard" Margin="10,201,0,0" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Width="120" />
+        <Label Content="Hair" Foreground="White" FontWeight="Medium" HorizontalAlignment="Left" Margin="10,246,0,0" Height="26" VerticalAlignment="Top"/>
+        <ComboBox x:Name="HairSelectBox" SelectionChanged="ChangeSelectedHair" Margin="10,277,0,0" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Width="120" />
+
+    </Grid>
+</Window>
