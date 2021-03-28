@@ -36,7 +36,7 @@ namespace ValheimSaveEditor
 
         public static bool IsInventoryPositionValid(int x, int y)
         {
-            if (x < 0 || y < 0 || x >= MaxInvWidth || y >= MaxInvHeight)
+            if (x < 0 || y < 0 || x > MaxInvWidth || y > MaxInvHeight)
             {
                 return false;
             }

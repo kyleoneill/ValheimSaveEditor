@@ -37,9 +37,11 @@ namespace ValheimSaveEditor
 
         private void MenuItem_OpenClick(object sender, RoutedEventArgs e)
         {
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-            dlg.Filter = "FCH Files (*.fch)|*.fch";
-            dlg.InitialDirectory = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), @"Appdata\LocalLow\IronGate\Valheim\characters");
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog
+            {
+                Filter = "FCH Files (*.fch)|*.fch",
+                InitialDirectory = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), @"Appdata\LocalLow\IronGate\Valheim\characters")
+            };
             Nullable<bool> result = dlg.ShowDialog();
             if(result == true)
             {
@@ -53,11 +55,13 @@ namespace ValheimSaveEditor
         private void MenuItem_SaveClick(object sender, RoutedEventArgs e)
         {
             string valheimSaveFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), @"Appdata\LocalLow\IronGate\Valheim\characters");
-            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-            dlg.Filter = "FCH Files (*.fch)|*.fch";
-            dlg.InitialDirectory = valheimSaveFolder;
-            dlg.FileName = character.Name;
-            dlg.DefaultExt = ".fch";
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog
+            {
+                Filter = "FCH Files (*.fch)|*.fch",
+                InitialDirectory = valheimSaveFolder,
+                FileName = character.Name,
+                DefaultExt = ".fch"
+            };
             Nullable<bool> result = dlg.ShowDialog();
             if(result == true)
             {

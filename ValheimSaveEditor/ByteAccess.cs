@@ -7,9 +7,9 @@ namespace ValheimSaveEditor
 {
     class ByteAccess
     {
-        private BinaryWriter writer;
-        private BinaryReader reader;
-        private MemoryStream stream = new MemoryStream();
+        private readonly BinaryWriter writer;
+        private readonly BinaryReader reader;
+        private readonly MemoryStream stream = new MemoryStream();
 
         public ByteAccess(byte[] data)
         {
