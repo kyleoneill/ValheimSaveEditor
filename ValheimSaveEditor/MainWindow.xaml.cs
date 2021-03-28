@@ -52,14 +52,20 @@ namespace ValheimSaveEditor
 
         private void MenuItem_SaveClick(object sender, RoutedEventArgs e)
         {
+            string valheimSaveFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), @"Appdata\LocalLow\IronGate\Valheim\characters");
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
             dlg.Filter = "FCH Files (*.fch)|*.fch";
-            dlg.InitialDirectory = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), @"Appdata\LocalLow\IronGate\Valheim\characters");
+            dlg.InitialDirectory = valheimSaveFolder;
             dlg.FileName = character.Name;
             dlg.DefaultExt = ".fch";
             Nullable<bool> result = dlg.ShowDialog();
             if(result == true)
             {
+                if(File.Exists(dlg.FileName))
+                {
+                    string backupFileName = character.Name + "_" + DateTime.Now.ToString("yyyyMMddHHmm") + ".fch.backup";
+                    File.Move(dlg.FileName, System.IO.Path.Combine(valheimSaveFolder, backupFileName));
+                }
                 string fileName = dlg.FileName;
                 byte[] characterAsBytes = FchParser.CharacterToArray(character);
                 File.WriteAllBytes(fileName, characterAsBytes);
