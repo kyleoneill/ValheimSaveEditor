@@ -24,6 +24,22 @@ namespace ValheimSaveEditor
     {
         private static ValheimData.Character character;
         private static bool isCharacterLoaded;
+        private string CharName
+        {
+            get { return character.Name; }
+            set
+            {
+                if (value.Length < 4 || value.Length > 15)
+                {
+                    CharErrorTextblock.Text = "Character names have a minimum length of 4 and maximum length of 15 characters.";
+                }
+                else
+                {
+                    CharErrorTextblock.Text = "";
+                    character.Name = value;
+                }
+            }
+        }
 
         public MainWindow()
         {
@@ -86,19 +102,11 @@ namespace ValheimSaveEditor
             CharNameTextbox.Text = character.Name;
         }
 
-        private void ChangeNameEventHandle(object sender, RoutedEventArgs args)
+        private void ChangeNameEventHandle(object sender, TextChangedEventArgs args)
         {
             if(isCharacterLoaded)
             {
-                string newName = CharNameTextbox.Text;
-                if(newName.Length >= 3 && newName.Length <= 15)
-                {
-                    character.Name = CharNameTextbox.Text;
-                }
-                else
-                {
-                    MessageBox.Show("Character name must be between 3 and 15 characters.", "Warning", MessageBoxButton.OK);
-                }
+                CharName = CharNameTextbox.Text;
             }
         }
 

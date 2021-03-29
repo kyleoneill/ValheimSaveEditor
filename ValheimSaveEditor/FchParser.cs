@@ -73,8 +73,7 @@ namespace ValheimSaveEditor
             character.isOldCharacter = byteReader.ReadBoolean();
             if (!character.isOldCharacter) return character;
 
-            var dataLength = byteReader.ReadInt32(); // TODO - I think this line should not be here, this data doesn't look like it exists in the source
-            //and might create an off-by-4-byte error that prevents anything further from being read correctly
+            var dataLength = byteReader.ReadInt32();
             character.DataVersion = byteReader.ReadInt32();
             character.MaxHp = byteReader.ReadSingle();
             character.Hp = byteReader.ReadSingle();
